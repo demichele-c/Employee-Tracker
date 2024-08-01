@@ -1,3 +1,18 @@
+-- Drop the database if it exists
+DROP DATABASE IF EXISTS employee_db;
+
+-- Create the database
+CREATE DATABASE employee_db;
+
+-- Connect to the new database
+\c employee_db;
+
+-- Drop tables if they already exist
+DROP TABLE IF EXISTS employee;
+DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS department;
+
+-- Create tables
 CREATE TABLE department (
     id SERIAL PRIMARY KEY,
     name VARCHAR(30) UNIQUE NOT NULL
