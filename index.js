@@ -119,35 +119,36 @@ async function addRole() {
 }
 
 async function addEmployee() {
-    try {
-      const roles = await client.query('SELECT * FROM role');
-      if (roles.rows.length === 0) {
-        console.log('No roles available. Please add roles first.');
-        await mainMenu();
-        return;
-      }
-  
-      const roleChoices = roles.rows.map(role => ({ name: role.title, value: role.id }));
-  
-      const employees = await client.query('SELECT * FROM employee');
-      const managerChoices = employees.rows.map(emp => ({ name: `${emp.first_name} ${emp.last_name}`, value: emp.id }));
-      managerChoices.push({ name: 'None', value: null });
-  
-      const { first_name, last_name, role_id, manager_id } = await inquirer.prompt([
-        { type: 'input', name: 'first_name', message: 'Enter the first name:' },
-        { type: 'input', name: 'last_name', message: 'Enter the last name:' },
-        { type: 'list', name: 'role_id', message: 'Select the role:', choices: roleChoices },
-        { type: 'list', name: 'manager_id', message: 'Select the manager:', choices: managerChoices }
-      ]);
-  
-      await client.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)', [first_name, last_name, role_id, manager_id]);
-      console.log(`Added ${first_name} ${last_name} to the database`);
-    } catch (error) {
-      console.error('Error adding employee:', error);
+  try {
+    const roles = await client.query('SELECT * FROM role');
+    if (roles.rows.length === 0) {
+      console.log('No roles available. Please add roles first.');
+      await mainMenu();
+      return;
     }
-  
-    await mainMenu();
+
+    const roleChoices = roles.rows.map(role => ({ name: role.title, value: role.id }));
+
+    const employees = await client.query('SELECT * FROM employee');
+    const managerChoices = employees.rows.map(emp => ({ name: `${emp.first_name} ${emp.last_name}`, value: emp.id }));
+    managerChoices.push({ name: 'None', value: null });
+
+    const { first_name, last_name, role_id, manager_id } = await inquirer.prompt([
+      { type: 'input', name: 'first_name', message: 'Enter the first name:' },
+      { type: 'input', name: 'last_name', message: 'Enter the last name:' },
+      { type: 'list', name: 'role_id', message: 'Select the role:', choices: roleChoices },
+      { type: 'list', name: 'manager_id', message: 'Select the manager:', choices: managerChoices }
+    ]);
+
+    await client.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)', [first_name, last_name, role_id, manager_id]);
+    console.log(`Added ${first_name} ${last_name} to the database`);
+  } catch (error) {
+    console.error('Error adding employee:', error);
   }
+
+  await mainMenu();
+}
+
 async function updateEmployeeRole() {
   const employees = await client.query('SELECT * FROM employee');
   const employeeChoices = employees.rows.map(emp => ({ name: `${emp.first_name} ${emp.last_name}`, value: emp.id }));
@@ -155,12 +156,16 @@ async function updateEmployeeRole() {
   const roles = await client.query('SELECT * FROM role');
   const roleChoices = roles.rows.map(role => ({ name: role.title, value: role.id }));
 
-  const { employee_id, role_id } = await inquirer.prompt([
+  const managerChoices = employees.rows.map(emp => ({ name: `${emp.first_name} ${emp.last_name}`, value: emp.id }));
+  managerChoices.push({ name: 'None', value: null });
+
+  const { employee_id, role_id, manager_id } = await inquirer.prompt([
     { type: 'list', name: 'employee_id', message: 'Select the employee to update:', choices: employeeChoices },
-    { type: 'list', name: 'role_id', message: 'Select the new role:', choices: roleChoices }
+    { type: 'list', name: 'role_id', message: 'Select the new role:', choices: roleChoices },
+    { type: 'list', name: 'manager_id', message: 'Select the new manager:', choices: managerChoices }
   ]);
 
-  await client.query('UPDATE employee SET role_id = $1 WHERE id = $2', [role_id, employee_id]);
-  console.log(`Updated employee's role`);
+  await client.query('UPDATE employee SET role_id = $1, manager_id = $2 WHERE id = $3', [role_id, manager_id, employee_id]);
+  console.log(`Updated employee's role and manager`);
   await mainMenu(); // Ensure this call is awaited
 }
