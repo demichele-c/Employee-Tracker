@@ -1,4 +1,4 @@
-nst inquirer = require('inquirer'); // Import inquirer for command-line prompts
+const inquirer = require('inquirer'); // Import inquirer for command-line prompts
 const { Client } = require('pg'); // Import the PostgreSQL client
 
 // Create a new PostgreSQL client instance with connection details
