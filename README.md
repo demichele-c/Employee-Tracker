@@ -17,7 +17,7 @@ The Employee Tracker is a simple command-line tool that helps companies manage e
 
 ## Installation
 
-To install and run the Employee Tracker application, first clone the repository with git clone https://github.com/demichele-c/Employee-Tracker.git and navigate to the project directory. Install dependencies using npm install, and set up PostgreSQL by creating a database named employee_db. Run the schema and seed SQL files with psql -U postgres -d employee_db -f db/schema.sql and psql -U postgres -d employee_db -f db/seeds.sql. Finally, start the application with node index.js and follow the interactive menu to manage employee data.
+To install and run the Employee Tracker application, first clone the repository with git clone https://github.com/demichele-c/Employee-Tracker.git and navigate to the project directory. Install dependencies using npm install, and set up PostgreSQL by creating a database named employee_db. Run the schema and seed SQL files with psql -U postgres, enter password. Run \i schema.sql, \i seeds.sql, then \i query.sql. Finally, start the application with node index.js and follow the interactive menu to manage employee data.
 
 ## Usage
 

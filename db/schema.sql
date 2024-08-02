@@ -1,3 +1,11 @@
+-- Drop the database if it exists
+DROP DATABASE IF EXISTS employee_db;
+
+-- Create a new database
+CREATE DATABASE employee_db;
+
+-- Connect to the new database
+\c employee_db;
 -- Drop tables if they already exist
 -- This ensures that if any of the tables already exist, they will be removed
 -- before creating new ones
