@@ -6,6 +6,10 @@
 
 The Employee Tracker is a simple command-line tool that helps companies manage employee information. It is built with Node.js and PostgreSQL, and lets users easily view, add, and update information about employees, their roles, and departments. By using an interactive interface, users can follow prompts to perform various tasks, reducing the chances of errors that come with manual record-keeping. This tool ensures that all employee data is stored accurately in a central database, making it easier for HR departments and managers to keep track of everyone in the company.
 
+## Video Demo
+
+Watch a demo of the project [here](https://drive.google.com/file/d/13vMsRiy04XIg2wh5PnVb1ZmYQsoFXyDb/view)
+
 ## Table of Contents
 
 - [Installation](#installation)
