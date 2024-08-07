@@ -15,7 +15,7 @@ async function mainMenu() {
         'View All Employees',
         'View Employees by Manager',
         'View Employees by Department',
-        'View Budget for Department',  // Updated choice for viewing budget by department
+        'View Budget for Department',  
         'Add Department',
         'Add Role',
         'Add Employee',
